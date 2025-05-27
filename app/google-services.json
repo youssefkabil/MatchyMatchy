@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "69146032388",
+    "project_id": "matchymatchy-fb25e",
+    "storage_bucket": "matchymatchy-fb25e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:69146032388:android:7dc1b45bf33c5fbc3c7851",
+        "android_client_info": {
+          "package_name": "com.example.matchymatchy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLJFHTdlqkbIfX8rjsZidcVbWScz6wwX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
