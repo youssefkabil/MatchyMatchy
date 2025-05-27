@@ -3,6 +3,7 @@ package com.example.matchymatchy;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -18,22 +19,28 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private static final String TAG = "RegisterActivity";
     private TextInputEditText editTextEmail, editTextPassword, editTextConfirmPassword;
     private Button buttonRegister;
     private TextView textViewLogin;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Initialize Firebase Auth
+        // Initialize Firebase Auth and Firestore
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         // Initialize views
         editTextEmail = findViewById(R.id.editTextEmail);
@@ -68,6 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
+            Log.d(TAG, "User already logged in: " + currentUser.getEmail());
             // User is already logged in, go to main activity
             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
             startActivity(intent);
@@ -80,7 +88,8 @@ public class RegisterActivity extends AppCompatActivity {
         String password = editTextPassword.getText().toString().trim();
         String confirmPassword = editTextConfirmPassword.getText().toString().trim();
 
-        // Validate input
+        Log.d(TAG, "Attempting to register user with email: " + email);
+
         if (TextUtils.isEmpty(email)) {
             editTextEmail.setError("Email is required");
             editTextEmail.requestFocus();
@@ -118,19 +127,52 @@ public class RegisterActivity extends AppCompatActivity {
                         buttonRegister.setEnabled(true);
 
                         if (task.isSuccessful()) {
-                            // Registration success
-                            Toast.makeText(RegisterActivity.this, "Registration successful!",
-                                    Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "User registration successful");
+                            FirebaseUser user = mAuth.getCurrentUser();
 
-                            // Navigate to main activity
-                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                            if (user != null) {
+                                String userId = user.getUid();
+                                String userEmail = user.getEmail();
+
+                                Log.d(TAG, "Creating user document for UID: " + userId);
+
+                                // Create the user data
+                                Map<String, Object> userMap = new HashMap<>();
+                                userMap.put("email", userEmail);
+                                userMap.put("book", "None");
+                                userMap.put("createdAt", System.currentTimeMillis());
+
+                                
+                                db.collection("user").document(userId)
+                                        .set(userMap)
+                                        .addOnSuccessListener(aVoid -> {
+                                            Log.d(TAG, "User document created successfully");
+                                            Toast.makeText(RegisterActivity.this,
+                                                    "Registration successful!", Toast.LENGTH_SHORT).show();
+
+                                            // Go to main screen
+                                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Log.e(TAG, "Failed to create user document", e);
+                                            Toast.makeText(RegisterActivity.this,
+                                                    "Failed to save user data: " + e.getMessage(),
+                                                    Toast.LENGTH_LONG).show();
+
+                                            // Still navigate to main activity since auth was successful
+                                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        });
+                            }
                         } else {
                             // Registration failed
                             String errorMessage = "Registration failed";
                             if (task.getException() != null) {
                                 errorMessage = task.getException().getMessage();
+                                Log.e(TAG, "Registration failed", task.getException());
                             }
                             Toast.makeText(RegisterActivity.this, errorMessage,
                                     Toast.LENGTH_LONG).show();
