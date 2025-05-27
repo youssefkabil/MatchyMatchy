@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background">
+
+    <!-- Toolbar with back button -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:navigationIcon="@drawable/ic_back_arrow" />
+
+    <!-- ScrollView content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center_horizontal">
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Personality Quiz"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="32dp" />
+
+            <!-- Question -->
+            <TextView
+                android:id="@+id/textViewQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="What kind of stories do you enjoy the most?"
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Options -->
+            <Button
+                android:id="@+id/buttonOption1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Adventure and Fantasy"
+                android:background="@drawable/quiz_button_background"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/buttonOption2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Romance and Drama"
+                android:background="@drawable/quiz_button_background"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/buttonOption3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mystery and Thriller"
+                android:background="@drawable/quiz_button_background"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/buttonOption4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sci-Fi and Technology"
+                android:background="@drawable/quiz_button_background"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="32dp" />
+
+            <!-- Next Button -->
+            <Button
+                android:id="@+id/buttonNext"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Next"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:background="@drawable/quiz_button_background"
+                android:elevation="6dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

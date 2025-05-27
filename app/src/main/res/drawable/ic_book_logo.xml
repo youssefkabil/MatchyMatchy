@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+
+    <!-- Book Shadow -->
+    <path
+        android:fillColor="#E5E7EB"
+        android:pathData="M25,95 L95,95 Q100,95 100,90 L100,35 Q100,30 95,30 L30,30 Q25,30 25,35 Z" />
+
+    <!-- Main Book Cover -->
+    <path
+        android:fillColor="@color/primary_button"
+        android:pathData="M20,90 L90,90 Q95,90 95,85 L95,30 Q95,25 90,25 L25,25 Q20,25 20,30 Z" />
+
+    <!-- Book Spine -->
+    <path
+        android:fillColor="#4F46E5"
+        android:pathData="M20,30 L20,85 Q20,90 25,90 L30,90 L30,25 L25,25 Q20,25 20,30 Z" />
+
+    <!-- Book Pages -->
+    <path
+        android:fillColor="#F9FAFB"
+        android:pathData="M35,35 L85,35 L85,80 L35,80 Z" />
+
+    <!-- Page Lines -->
+    <path
+        android:strokeColor="#D1D5DB"
+        android:strokeWidth="1"
+        android:pathData="M40,45 L80,45" />
+    <path
+        android:strokeColor="#D1D5DB"
+        android:strokeWidth="1"
+        android:pathData="M40,52 L80,52" />
+    <path
+        android:strokeColor="#D1D5DB"
+        android:strokeWidth="1"
+        android:pathData="M40,59 L80,59" />
+    <path
+        android:strokeColor="#D1D5DB"
+        android:strokeWidth="1"
+        android:pathData="M40,66 L80,66" />
+
+    <!-- Heart Symbol (representing dreams/love for books) -->
+    <path
+        android:fillColor="#EF4444"
+        android:pathData="M60,50 C60,47 57,45 55,45 C53,45 50,47 50,50 C50,47 47,45 45,45 C43,45 40,47 40,50 C40,55 50,65 50,65 C50,65 60,55 60,50 Z" />
+
+    <!-- Book Bookmark -->
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M75,25 L85,25 L85,45 L80,40 L75,45 Z" />
+
+</vector>

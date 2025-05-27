@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO: Navigate to quiz activity
-                Toast.makeText(MainActivity.this, "Quiz feature coming soon!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, QuizActivity.class));
             }
         });
 
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private View createBookCard(Book book) {
-        // Create main card container
+        // CardView setup
         CardView cardView = new CardView(this);
         LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -159,92 +159,56 @@ public class MainActivity extends AppCompatActivity {
         cardView.setLayoutParams(cardParams);
         cardView.setRadius(16);
         cardView.setCardElevation(8);
-        cardView.setCardBackgroundColor(Color.parseColor("#20FFFFFF"));
+        cardView.setCardBackgroundColor(Color.parseColor("#20FFFFFF")); // semi-transparent white
 
-        // Create inner linear layout
+        // Inner layout
         LinearLayout innerLayout = new LinearLayout(this);
         innerLayout.setOrientation(LinearLayout.HORIZONTAL);
         innerLayout.setPadding(20, 20, 20, 20);
-        LinearLayout.LayoutParams innerParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        innerLayout.setLayoutParams(innerParams);
 
-        // Create book icon
+        // Book icon
         ImageView bookIcon = new ImageView(this);
         LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(60, 60);
-        iconParams.rightMargin = 20;
+        iconParams.setMargins(0, 0, 20, 0);
         bookIcon.setLayoutParams(iconParams);
-        bookIcon.setImageResource(R.drawable.ic_book_open);
-        bookIcon.setColorFilter(Color.WHITE);
+        bookIcon.setImageResource(R.drawable.ic_book_open); // Replace with your drawable
 
-        // Create text container
+        // Text layout
         LinearLayout textLayout = new LinearLayout(this);
         textLayout.setOrientation(LinearLayout.VERTICAL);
-        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(
-                0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f
-        );
-        textLayout.setLayoutParams(textParams);
+        textLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        ));
 
         // Book title
-        TextView titleText = new TextView(this);
-        titleText.setText(book.name);
-        titleText.setTextSize(18);
-        titleText.setTextColor(Color.WHITE);
-        titleText.setTypeface(null, android.graphics.Typeface.BOLD);
-        LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        titleParams.bottomMargin = 8;
-        titleText.setLayoutParams(titleParams);
+        TextView titleView = new TextView(this);
+        titleView.setText(book.name);
+        titleView.setTextColor(Color.WHITE);
+        titleView.setTextSize(18);
+        titleView.setTypeface(null, android.graphics.Typeface.BOLD);
 
         // Book description
-        TextView descText = new TextView(this);
-        descText.setText(book.description);
-        descText.setTextSize(14);
-        descText.setTextColor(Color.parseColor("#CCFFFFFF"));
-        descText.setMaxLines(2);
-        descText.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        TextView descView = new TextView(this);
+        descView.setText(book.description);
+        descView.setTextColor(Color.WHITE);
+        descView.setTextSize(14);
+        descView.setAlpha(0.8f);
 
-        // Add texts to text layout
-        textLayout.addView(titleText);
-        textLayout.addView(descText);
+        // Add views to text layout
+        textLayout.addView(titleView);
+        textLayout.addView(descView);
 
-        // Create quiz button
-        Button quizButton = new Button(this);
-        LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        quizButton.setLayoutParams(buttonParams);
-        quizButton.setText("Take Quiz");
-        quizButton.setTextSize(12);
-        quizButton.setTextColor(Color.WHITE);
-        quizButton.setBackgroundColor(Color.parseColor("#FF8E8E"));
-        quizButton.setPadding(24, 12, 24, 12);
-
-        // Set quiz button click listener
-        quizButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this,
-                        "Starting quiz for: " + book.name, Toast.LENGTH_SHORT).show();
-                // TODO: Start quiz for specific book
-            }
-        });
-
-        // Add all views to inner layout
+        // Add views to inner layout
         innerLayout.addView(bookIcon);
         innerLayout.addView(textLayout);
-        innerLayout.addView(quizButton);
 
-        // Add inner layout to card
+        // Add inner layout to card view
         cardView.addView(innerLayout);
 
         return cardView;
     }
+
 
     private void showRecentBooks() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
