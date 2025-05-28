@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_color">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primary_color"
+        android:elevation="4dp"
+        app:titleTextColor="@android:color/white"
+        app:navigationIcon="?attr/homeAsUpIndicator" />
+
+    <!-- Main Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Congratulations Text -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🎉 Perfect Match Found!"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_color"
+                android:textAlignment="center"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Based on your personality, here's your recommended book:"
+                android:textSize="16sp"
+                android:textColor="@color/text_secondary"
+                android:textAlignment="center"
+                android:layout_marginBottom="32dp" />
+
+            <!-- Book Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="8dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!-- Book Image -->
+                    <ImageView
+                        android:id="@+id/imageViewBook"
+                        android:layout_width="120dp"
+                        android:layout_height="160dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="16dp"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/book_placeholder_background"
+                        android:src="@drawable/ic_book_placeholder" />
+
+                    <!-- Book Title -->
+                    <TextView
+                        android:id="@+id/textViewBookTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Book Title"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary"
+                        android:textAlignment="center"
+                        android:layout_marginBottom="12dp" />
+
+                    <!-- Book Description -->
+                    <TextView
+                        android:id="@+id/textViewBookDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Book description will appear here..."
+                        android:textSize="16sp"
+                        android:textColor="@color/text_secondary"
+                        android:lineSpacingExtra="4dp"
+                        android:textAlignment="center" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Action Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp">
+
+                <!-- Why Recommended Button -->
+                <Button
+                    android:id="@+id/buttonWhyRecommended"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Why this book?"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/button_primary"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="12dp"
+                    android:drawableLeft="@drawable/ic_lightbulb"
+                    android:drawablePadding="8dp"
+                    android:gravity="center" />
+
+                <!-- Take Another Quiz Button -->
+                <Button
+                    android:id="@+id/buttonTakeAnotherQuiz"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Take Another Quiz"
+                    android:textSize="16sp"
+                    android:background="@drawable/button_secondary"
+                    android:textColor="@color/primary_color"
+                    android:layout_marginBottom="12dp"
+                    android:drawableLeft="@drawable/ic_refresh"
+                    android:drawablePadding="8dp"
+                    android:gravity="center" />
+
+                <!-- Go Home Button -->
+                <Button
+                    android:id="@+id/buttonGoHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Go Home"
+                    android:textSize="16sp"
+                    android:background="@drawable/button_outline"
+                    android:textColor="@color/text_secondary"
+                    android:drawableLeft="@drawable/ic_home"
+                    android:drawablePadding="8dp"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

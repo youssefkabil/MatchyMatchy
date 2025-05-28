@@ -137,7 +137,28 @@ public class MainActivity extends AppCompatActivity {
                 "A coming-of-age story following a teenager's journey through New York City."));
         featuredBooks.add(new Book("6", "Harry Potter and the Sorcerer's Stone",
                 "A magical adventure about a young wizard discovering his destiny."));
+        featuredBooks.add(new Book("7", "The Hobbit",
+                "A fantastical journey with Bilbo Baggins in a world of dragons and treasure."));
+        featuredBooks.add(new Book("8", "The Lord of the Rings",
+                "An epic tale of friendship and the fight against dark forces in Middle-earth."));
+        featuredBooks.add(new Book("9", "Moby Dick",
+                "A sailor’s narrative of the obsessive quest to kill a great white whale."));
+        featuredBooks.add(new Book("10", "Jane Eyre",
+                "A strong heroine's journey through love, loss, and self-discovery."));
+        featuredBooks.add(new Book("11", "The Alchemist",
+                "A spiritual quest for treasure and meaning across the desert."));
+        featuredBooks.add(new Book("12", "Brave New World",
+                "A chilling vision of a technologically controlled society."));
+        featuredBooks.add(new Book("13", "The Chronicles of Narnia",
+                "A magical world where children become kings and queens in an epic struggle."));
+        featuredBooks.add(new Book("14", "The Da Vinci Code",
+                "A gripping modern mystery filled with historical intrigue and codes."));
+        featuredBooks.add(new Book("15", "The Kite Runner",
+                "A heartbreaking story of friendship and redemption set in Afghanistan."));
+        featuredBooks.add(new Book("16", "Animal Farm",
+                "A satirical allegory about power and corruption through the lens of farm animals."));
     }
+
 
     private void displayBooks() {
         layoutBooks.removeAllViews();

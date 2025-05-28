@@ -1,5 +1,6 @@
 package com.example.matchymatchy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +29,7 @@ import okhttp3.Response;
 
 public class QuizActivity extends AppCompatActivity {
     private static final String TAG = "QuizActivity";
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "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";
     private static final String API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
     // Firebase
@@ -216,7 +217,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private void highlightButton(Button button) {
         // Highlight selected button - you might want to adjust this based on your styling
-        button.setAlpha(0.7f);
+        button.setAlpha(0.5f);
     }
 
     private void saveCurrentAnswer() {
@@ -255,7 +256,36 @@ public class QuizActivity extends AppCompatActivity {
                 "A coming-of-age story following a teenager's journey through New York City."));
         featuredBooks.add(new Book("6", "Harry Potter and the Sorcerer's Stone",
                 "A magical adventure about a young wizard discovering his destiny."));
+        featuredBooks.add(new Book("7", "The Hobbit",
+                "A reluctant hero embarks on an epic journey to reclaim a lost kingdom."));
+        featuredBooks.add(new Book("8", "Moby-Dick",
+                "A sea captain's obsessive quest for vengeance against a giant white whale."));
+        featuredBooks.add(new Book("9", "Brave New World",
+                "A futuristic society where pleasure replaces freedom, and humanity is engineered."));
+        featuredBooks.add(new Book("10", "Jane Eyre",
+                "A passionate and resilient orphan fights for love and independence."));
+        featuredBooks.add(new Book("11", "The Lord of the Rings",
+                "An epic saga of friendship, courage, and the battle between good and evil."));
+        featuredBooks.add(new Book("12", "Fahrenheit 451",
+                "In a world where books are banned, one man dares to remember."));
+        featuredBooks.add(new Book("13", "The Alchemist",
+                "A shepherd's journey to fulfill his destiny teaches life’s spiritual lessons."));
+        featuredBooks.add(new Book("14", "Wuthering Heights",
+                "A haunting love story set on the desolate Yorkshire moors."));
+        featuredBooks.add(new Book("15", "The Chronicles of Narnia",
+                "Children discover a magical land where good and evil battle for control."));
+        featuredBooks.add(new Book("16", "Dracula",
+                "A chilling tale of the world's most infamous vampire."));
+        featuredBooks.add(new Book("17", "Little Women",
+                "The lives and struggles of four sisters growing up during the Civil War."));
+        featuredBooks.add(new Book("18", "Frankenstein",
+                "A scientist’s creation turns into a monster that questions the nature of humanity."));
+        featuredBooks.add(new Book("19", "Crime and Punishment",
+                "A philosophical crime novel exploring guilt, redemption, and morality."));
+        featuredBooks.add(new Book("20", "The Picture of Dorian Gray",
+                "A young man's portrait ages while he remains forever youthful—and corrupted."));
     }
+
 
     private void getAIRecommendationAndSave() {
         try {
@@ -425,8 +455,26 @@ public class QuizActivity extends AppCompatActivity {
                 .set(userMap)
                 .addOnSuccessListener(aVoid -> {
                     Log.d(TAG, "Book recommendation saved successfully: " + recommendedBook);
-                    Toast.makeText(QuizActivity.this,
-                            "Recommendation saved: " + recommendedBook, Toast.LENGTH_LONG).show();
+
+                    // Find the book description
+                    String bookDescription = findBookDescription(recommendedBook);
+
+                    // Create quiz data JSON for the reasoning API
+                    JSONObject quizDataJson = null;
+                    try {
+                        quizDataJson = createQuizResultsJSON();
+                    } catch (JSONException e) {
+                        Log.e(TAG, "Error creating quiz data JSON: " + e.getMessage());
+                    }
+
+                    // Navigate to BookRecommendationActivity
+                    Intent intent = new Intent(QuizActivity.this, BookRecommendationActivity.class);
+                    intent.putExtra("book_title", recommendedBook);
+                    intent.putExtra("book_description", bookDescription);
+                    if (quizDataJson != null) {
+                        intent.putExtra("quiz_data", quizDataJson.toString());
+                    }
+                    startActivity(intent);
                     finish();
                 })
                 .addOnFailureListener(e -> {
@@ -438,6 +486,16 @@ public class QuizActivity extends AppCompatActivity {
                 });
     }
 
+    private String findBookDescription(String bookTitle) {
+        // Find the book description from featuredBooks list
+        for (Book book : featuredBooks) {
+            if (book.name.equals(bookTitle)) {
+                return book.description;
+            }
+        }
+        // Return a default description if book not found
+        return "A wonderful book that matches your personality perfectly.";
+    }
     private void logQuizResults(JSONObject mainObject) {
         try {
             // Log the complete JSON
